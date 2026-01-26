@@ -1,27 +1,18 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Navbar() {
-    return(
-        <nav>
-            <h2>SKILL SPHERE</h2>
-            <ul>
-            <li>
-                <Link to='/'>Login</Link>
-            </li>
-            <li>
-                <Link to ="/Courses">Courses</Link>
-            </li>
-            <li>
-                <Link to ="/Dashboard">Dashboard</Link>
-            </li>
-            <li>
-                <Link to ="/Signup">Signup</Link>
-            </li>
-            
-            </ul>
-            
-        </nav>
-    );
+  return (
+    <nav>
+      <h2>SkillSphere</h2>
+
+      <ul>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/courses">Courses</Link></li>
+        <li><Link to="/login">Login</Link></li>
+        <li><Link to="/signup">Signup</Link></li>
+      </ul>
+    </nav>
+  );
 }
 
 export default Navbar;
