@@ -1,14 +1,26 @@
 import { useState } from "react";
-import {Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
-function Login() {
+function Login({ onLoginSuccess }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
+
+    // 🔹 fake validation for now
+    if (!email || !password) {
+      alert("Please enter email and password");
+      return;
+    }
+
+    // ✅ LOGIN SUCCESS (frontend simulation)
+    onLoginSuccess();
+
+    // 🔁 redirect to dashboard
+    navigate("/dashboard", { replace: true });
   }
 
   return (
@@ -21,7 +33,6 @@ function Login() {
           <br />
           <input
             type="email"
-            placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -34,7 +45,6 @@ function Login() {
           <br />
           <input
             type="password"
-            placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -44,10 +54,10 @@ function Login() {
 
         <button type="submit">Login</button>
       </form>
-      <p>
-           Don’t have an account? <Link to="/signup">Sign up</Link>
-      </p>
 
+      <p>
+        Don’t have an account? <Link to="/signup">Sign up</Link>
+      </p>
     </div>
   );
 }
