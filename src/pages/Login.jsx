@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { login } from "../services/authService";
 
 function Login({ onLoginSuccess }) {
   const [email, setEmail] = useState("");
@@ -10,17 +11,15 @@ function Login({ onLoginSuccess }) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    // 🔹 fake validation for now
-    if (!email || !password) {
-      alert("Please enter email and password");
+    const result = login(email, password);
+
+    if (!result.success) {
+      alert(result.message);
       return;
     }
 
-    // ✅ LOGIN SUCCESS (frontend simulation)
-    onLoginSuccess();
-
-    // 🔁 redirect to dashboard
-    navigate("/dashboard", { replace: true });
+    onLoginSuccess(result.user);
+    navigate("/app/dashboard", { replace: true });
   }
 
   return (
@@ -28,29 +27,23 @@ function Login({ onLoginSuccess }) {
       <h2>Login</h2>
 
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email</label>
-          <br />
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-        <br />
+        <br /><br />
 
-        <div>
-          <label>Password</label>
-          <br />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-        <br />
+        <br /><br />
 
         <button type="submit">Login</button>
       </form>
@@ -63,3 +56,5 @@ function Login({ onLoginSuccess }) {
 }
 
 export default Login;
+
+

@@ -1,52 +1,51 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 
-import Navbar from "./components/Navbar";
+import PublicLayout from "./layouts/PublicLayout";
+import AppLayout from "./layouts/AppLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Dashboard from "./pages/Dashboard";
 import Courses from "./pages/Courses";
+import Dashboard from "./pages/app/Dashboard";
 
-function AppLayout() {
-  const location = useLocation();
+function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const hideNavbar =
-    location.pathname === "/login" || location.pathname === "/signup";
-
-     function handleLoginSuccess() {
+  function handleLoginSuccess(userData) {
     setIsAuthenticated(true);
   }
 
   return (
-    <>
-      {!hideNavbar && <Navbar />}
-
+    <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
-        <Route path="/signup" element={<Signup />} />
+
+        {/* 🌍 PUBLIC LAYOUT (NO PATH) */}
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/login"
+            element={<Login onLoginSuccess={handleLoginSuccess} />}
+          />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/courses" element={<Courses />} />
+        </Route>
+
+        {/* 🔐 APP LAYOUT */}
         <Route
-          path="/dashboard"
+          path="/app"
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
-              <Dashboard />
+              <AppLayout />
             </ProtectedRoute>
           }
-        />
-        <Route path="/courses" element={<Courses />} />
-      </Routes>
-    </>
-  );
-}
+        >
+          <Route path="dashboard" element={<Dashboard />} />
+        </Route>
 
-function App() {
-  return (
-    <BrowserRouter>
-      <AppLayout />
+      </Routes>
     </BrowserRouter>
   );
 }
