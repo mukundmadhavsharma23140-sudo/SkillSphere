@@ -1,20 +1,22 @@
 import { Outlet } from "react-router-dom";
 import SideNavbar from "../components/SideNavbar";
+import AppTopBar from "../components/AppTopBar";
 
-function AppLayout() {
+function AppLayout({ onLogout }) {
   return (
-    <div style={{ display: "flex", minHeight: "100vh" }}>
-      
-      {/* Sidebar */}
+    <div className="flex min-h-screen bg-gray-100">
       <SideNavbar />
 
-      {/* Main content area */}
-      <main style={{ flex: 1, padding: "20px" }}>
-        <Outlet />
-      </main>
+      <div className="flex flex-col flex-1">
+        <AppTopBar onLogout={onLogout} />
 
+        <main className="flex-1 p-6">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 }
+
 
 export default AppLayout;

@@ -24,6 +24,10 @@ function App() {
   function handleLoginSuccess(userData) {
     setIsAuthenticated(true);
   }
+  function handleLogout() {
+  setIsAuthenticated(false);
+}
+
 
   return (
     <BrowserRouter>
@@ -45,7 +49,7 @@ function App() {
           path="/app"
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
-              <AppLayout />
+              <AppLayout onLogout={handleLogout} />
             </ProtectedRoute>
           }
         >
