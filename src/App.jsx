@@ -11,6 +11,13 @@ import Signup from "./pages/Signup";
 import Courses from "./pages/Courses";
 import Dashboard from "./pages/app/Dashboard";
 
+import Announcements from "./pages/app/Announcement";
+import MyCourses from "./pages/app/MyCourses";
+import Exams from "./pages/app/Exams";
+import Certificates from "./pages/app/Certificates";
+
+
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -43,6 +50,10 @@ function App() {
           }
         >
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="announcements" element={<Announcements />} />
+          <Route path="my-courses" element={<MyCourses />} />
+          <Route path="exams" element={<Exams />} />
+          <Route path="certificates" element={<Certificates />} />
         </Route>
 
       </Routes>
