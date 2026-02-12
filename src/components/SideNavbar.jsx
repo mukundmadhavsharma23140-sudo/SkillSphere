@@ -1,73 +1,42 @@
 import { NavLink } from "react-router-dom";
 
-const baseLink =
-  "flex items-center px-4 py-2 rounded-lg text-sm font-medium transition";
-
-const inactive =
-  "text-gray-600 hover:bg-gray-100 hover:text-gray-900";
-
-const active =
-  "bg-indigo-50 text-indigo-600 font-semibold";
+const links = [
+  { name: "Dashboard", path: "/app/dashboard" },
+  { name: "Announcements", path: "/app/announcements" },
+  { name: "My Courses", path: "/app/my-courses" },
+  { name: "Exams", path: "/app/exams" },
+  { name: "Certificates", path: "/app/certificates" },
+];
 
 function SideNavbar() {
   return (
-    <aside className="w-64 bg-white border-r border-gray-200 flex flex-col">
-      {/* Brand */}
-      <div className="h-14 flex items-center px-6 border-b">
-        <span className="text-xl font-bold text-indigo-600">
-          SkillSphere
-        </span>
+    <aside className="w-64 bg-gray-900 text-gray-200 flex flex-col">
+      {/* App name */}
+      <div className="h-16 flex items-center px-6 text-white text-xl font-semibold border-b border-gray-800">
+        SkillSphere
       </div>
 
-      {/* Links */}
-      <nav className="flex-1 px-3 py-4 space-y-1">
-        <NavLink
-          to="/app/dashboard"
-          className={({ isActive }) =>
-            `${baseLink} ${isActive ? active : inactive}`
-          }
-        >
-          Dashboard
-        </NavLink>
-
-        <NavLink
-          to="/app/announcements"
-          className={({ isActive }) =>
-            `${baseLink} ${isActive ? active : inactive}`
-          }
-        >
-          Announcements
-        </NavLink>
-
-        <NavLink
-          to="/app/my-courses"
-          className={({ isActive }) =>
-            `${baseLink} ${isActive ? active : inactive}`
-          }
-        >
-          My Courses
-        </NavLink>
-
-        <NavLink
-          to="/app/exams"
-          className={({ isActive }) =>
-            `${baseLink} ${isActive ? active : inactive}`
-          }
-        >
-          Exams
-        </NavLink>
-
-        <NavLink
-          to="/app/certificates"
-          className={({ isActive }) =>
-            `${baseLink} ${isActive ? active : inactive}`
-          }
-        >
-          Certificates
-        </NavLink>
+      {/* Nav links */}
+      <nav className="flex flex-col gap-1 px-4 py-6">
+        {links.map(({ name, path }) => (
+          <NavLink
+            key={path}
+            to={path}
+            className={({ isActive }) =>
+              `px-4 py-2.5 rounded-md text-sm ${
+                isActive
+                  ? "bg-indigo-600 text-white"
+                  : "hover:bg-gray-800 hover:text-white"
+              }`
+            }
+          >
+            {name}
+          </NavLink>
+        ))}
       </nav>
     </aside>
   );
 }
 
 export default SideNavbar;
+

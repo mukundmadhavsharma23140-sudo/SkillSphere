@@ -9,14 +9,12 @@ function AppLayout({ onLogout }) {
 
       <div className="flex flex-col flex-1">
         <AppTopBar onLogout={onLogout} />
-
-        <main className="flex-1 p-6">
+        <main className="p-6">
           <Outlet />
         </main>
       </div>
     </div>
   );
 }
-
 
 export default AppLayout;
